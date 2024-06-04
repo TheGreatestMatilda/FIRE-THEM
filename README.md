@@ -1,1 +1,3 @@
-[README.md](https://github.com/user-attachments/files/15550575/README.md)
+# 飞机大战
+
+实现了基本的飞机大战功能，还添加了击杀数
