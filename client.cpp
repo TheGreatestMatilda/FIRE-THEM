@@ -31,8 +31,8 @@ SOCKET creat_clientsocket(const char* ip);
 SOCKET fd = creat_clientsocket("127.0.0.1");
 
 int Timer(int duration, int id) {
-    static int start[5];//¼ÇÂ¼¿ªÊ¼Ê±¼ä
-    int end = clock();//¼ÇÂ¼½áÊøÊ±¼ä
+    static int start[5];//è®°å½•å¼€å§‹æ—¶é—´
+    int end = clock();//è®°å½•ç»“æŸæ—¶é—´
     if (end - start[id] >= duration) {
         start[id] = end;
         return 1;
@@ -59,13 +59,13 @@ public:
         this->pstr = text;
     }
     void drawbutton() {
-        setfillcolor(this->color);//Ìî³äÑÕÉ«
-        settextstyle(15, 0, "ËÎÌå");//ÉèÖÃ×ÖÌå´óĞ¡ºÍĞÎ×´
-        setlinecolor(BLACK);//ÉèÖÃ°´Å¥±ß¿òÎªºÚÉ«
-        settextcolor(BLACK);//ÉèÖÃ×ÖÌåÑÕÉ«
-        setbkmode(TRANSPARENT);//ÉèÖÃ×ÖÌå±³¾°Í¸Ã÷
-        fillrectangle(this->x, this->y, this->x + this->width, this->y + this->height);//¾ØĞÎ´óĞ¡
-        outtextxy(this->x + 5, this->y + 8, this->pstr.c_str());//·ÅÖÃ×ÖÌå
+        setfillcolor(this->color);//å¡«å……é¢œè‰²
+        settextstyle(15, 0, "å®‹ä½“");//è®¾ç½®å­—ä½“å¤§å°å’Œå½¢çŠ¶
+        setlinecolor(BLACK);//è®¾ç½®æŒ‰é’®è¾¹æ¡†ä¸ºé»‘è‰²
+        settextcolor(BLACK);//è®¾ç½®å­—ä½“é¢œè‰²
+        setbkmode(TRANSPARENT);//è®¾ç½®å­—ä½“èƒŒæ™¯é€æ˜
+        fillrectangle(this->x, this->y, this->x + this->width, this->y + this->height);//çŸ©å½¢å¤§å°
+        outtextxy(this->x + 5, this->y + 8, this->pstr.c_str());//æ”¾ç½®å­—ä½“
     }
     bool mouseinButton(MOUSEMSG m) {
         if (this->x <= m.x && this->x + this->width >= m.x && this->y <= m.y && this->y + this->height >= m.y) {
@@ -86,11 +86,11 @@ public:
     }
 protected:
     int x;
-    int y;//¾ØĞÎ³õÊ¼×ø±ê
+    int y;//çŸ©å½¢åˆå§‹åæ ‡
     int width;
     int height;
-    COLORREF color;//Ìî³äÑÕÉ«
-    string pstr;//ÎÄ±¾
+    COLORREF color;//å¡«å……é¢œè‰²
+    string pstr;//æ–‡æœ¬
 };
 struct plane {
     bool isDied;
@@ -113,10 +113,10 @@ bullet b[30] = { 0 };
 bullet a;
 void gameover(int kill) {
     TCHAR* str = new TCHAR[128];
-    _stprintf_s(str, 128, _T("»÷É±Êı£º%d"), kill);
-    LPCSTR end = _T("°´enterÍË³öÓÎÏ·");
+    _stprintf_s(str, 128, _T("å‡»æ€æ•°ï¼š%d"), kill);
+    LPCSTR end = _T("æŒ‰enteré€€å‡ºæ¸¸æˆ");
     outtextxy(150, 200, str);
-    settextstyle(35, 0, "ËÎÌå");//ÉèÖÃ×ÖÌå´óĞ¡ºÍĞÎ×´
+    settextstyle(35, 0, "å®‹ä½“");//è®¾ç½®å­—ä½“å¤§å°å’Œå½¢çŠ¶
     outtextxy(150, 300, end);
     while (1) {
         ExMessage m;
@@ -228,15 +228,15 @@ bool clickbutton(int x, int y, RECT r) {
     return(r.left <= x && x <= r.right && r.top <= y && y <= r.bottom);
 }
 void welcome(MOUSEMSG m) {
-    LPCSTR title = _T("·É»ú´óÕ½");
-    button* begin = new button(150, 200, 100, 50, WHITE, "¿ªÊ¼ÓÎÏ·");
-    button* close = new button(150, 260, 100, 50, WHITE, "ÍË³öÓÎÏ·");
+    LPCSTR title = _T("é£æœºå¤§æˆ˜");
+    button* begin = new button(150, 200, 100, 50, WHITE, "å¼€å§‹æ¸¸æˆ");
+    button* close = new button(150, 260, 100, 50, WHITE, "é€€å‡ºæ¸¸æˆ");
     m = GetMouseMsg();
     while (1) {
-        BeginBatchDraw();//Ìí¼ÓË«»º³å
+        BeginBatchDraw();//æ·»åŠ åŒç¼“å†²
         putimage(0, 0, &img_bk);
-        setfillcolor(WHITE);//Ìî³äÑÕÉ«
-        settextstyle(35, 0, "ËÎÌå");//ÉèÖÃ×ÖÌå´óĞ¡ºÍĞÎ×´
+        setfillcolor(WHITE);//å¡«å……é¢œè‰²
+        settextstyle(35, 0, "å®‹ä½“");//è®¾ç½®å­—ä½“å¤§å°å’Œå½¢çŠ¶
         outtextxy(150, 100, title);
         begin->drawbutton();
         close->drawbutton();
@@ -250,15 +250,15 @@ void welcome(MOUSEMSG m) {
     }
     //
     //putimage(0, 0, &img_bk);
-    //LPCSTR title = _T("·É»ú´óÕ½");
-    //LPCSTR begin = _T("¿ªÊ¼ÓÎÏ·");
-    //LPCSTR end = _T("ÍË³öÓÎÏ·");
+    //LPCSTR title = _T("é£æœºå¤§æˆ˜");
+    //LPCSTR begin = _T("å¼€å§‹æ¸¸æˆ");
+    //LPCSTR end = _T("é€€å‡ºæ¸¸æˆ");
     //RECT Begin, End;
-    //BeginBatchDraw();//Ìí¼ÓË«»º³å
-    //setfillcolor(WHITE);//Ìî³äÑÕÉ«
-    //settextstyle(25, 0, "ËÎÌå");//ÉèÖÃ×ÖÌå´óĞ¡ºÍĞÎ×´
+    //BeginBatchDraw();//æ·»åŠ åŒç¼“å†²
+    //setfillcolor(WHITE);//å¡«å……é¢œè‰²
+    //settextstyle(25, 0, "å®‹ä½“");//è®¾ç½®å­—ä½“å¤§å°å’Œå½¢çŠ¶
     //outtextxy(img_bk.getwidth() / 2 - textwidth(title) / 2, img_bk.getheight()/5, title);
-    //settextstyle(15, 0, "ËÎÌå");//ÉèÖÃ×ÖÌå´óĞ¡ºÍĞÎ×´
+    //settextstyle(15, 0, "å®‹ä½“");//è®¾ç½®å­—ä½“å¤§å°å’Œå½¢çŠ¶
     //Begin.left = img_bk.getwidth() - textwidth(begin) / 2;
     //Begin.right = Begin.left - textwidth(begin);
     //Begin.top = img_bk.getheight() / 5*2.5;
@@ -304,8 +304,8 @@ void hit() {
                 sprintf(buf, "%d", kill);
                 send(fd, buf, strlen(buf),0);
                 //if (enemy[i].isDied) {
-                //    mciSendString("open C://Users/yezi2/Desktop/Èí¼şĞ­»á/Project4/Project4/boom.mp3", NULL, 0, NULL);
-                //    mciSendString("play C://Users/yezi2/Desktop/Èí¼şĞ­»á/Project4/Project4/boom.mp3", NULL, 0, NULL);
+                //    mciSendString("open C://Users/yezi2/Desktop/è½¯ä»¶åä¼š/Project4/Project4/boom.mp3", NULL, 0, NULL);
+                //    mciSendString("play C://Users/yezi2/Desktop/è½¯ä»¶åä¼š/Project4/Project4/boom.mp3", NULL, 0, NULL);
                 //}
             }
         }
@@ -326,11 +326,11 @@ int main() {
     initgraph(500, 720);
     init();
     init_socket();
-
+    SOCKET fd = creat_clientsocket("127.0.0.1");
     MOUSEMSG m;
     m = GetMouseMsg();
     while (true) {
-        int starttime = clock();//»ñÈ¡³ÌĞòÖ´ĞĞµ½µ÷ÓÃº¯ÊıËùÓÃµÄºÁÃëÊı
+        int starttime = clock();//è·å–ç¨‹åºæ‰§è¡Œåˆ°è°ƒç”¨å‡½æ•°æ‰€ç”¨çš„æ¯«ç§’æ•°
         //welcome(m);
         draw();
         planemove(&gamer);
@@ -340,7 +340,7 @@ int main() {
         }
         enemymove();
         hit();
-        int frametime = clock() - starttime;//»ñÈ¡Ò»´ÎÑ­»·Ö´ĞĞËùĞèµÄºÁÃëÊı
+        int frametime = clock() - starttime;//è·å–ä¸€æ¬¡å¾ªç¯æ‰§è¡Œæ‰€éœ€çš„æ¯«ç§’æ•°
         if (1000 / 10 - frametime > 0) {
             Sleep(1000 / 10 - frametime > 0);
         }
