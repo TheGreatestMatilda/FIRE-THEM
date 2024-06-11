@@ -15,6 +15,7 @@
 #pragma comment(lib,"winmm.lib")
 #include<easyx.h>
 #include<set>
+
 using namespace std;
 #define PORT 8888;
 set<SOCKET>clients;
@@ -39,6 +40,7 @@ SOCKET creat_serversocket() {
         cout << "socket error" << endl;
         return INVALID_SOCKET;
     }
+    string ip = "127.0.0.1";
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
     addr.sin_port = htons(8888);
@@ -70,13 +72,23 @@ int main() {
     init_socket();
     SOCKET fd = creat_serversocket();
     cout << "服务器已开启" << endl;
-    while (true) {
-        SOCKET clientFD = accept(fd, NULL, NULL);
-        cout << "有新的客户端连接" << (long long)clientFD << endl;
-        clients.insert(clientFD);
-        char buf[BUFSIZ] = { 0 };
-        recv(clientFD, buf, BUFSIZ, 0);
-        puts(buf);
 
-    }
+    SOCKET clientFD1 = accept(fd, NULL, NULL);
+    cout << "有新的客户端连接" << (long long)clientFD1 << endl;
+    SOCKET clientFD2 = accept(fd, NULL, NULL);
+    cout << "有新的客户端连接" << (long long)clientFD1 << endl;
+    char buf[BUFSIZ] = { 0 };
+    int kill1;
+    kill1=recv(clientFD1, buf, BUFSIZ, 0);
+    int kill2;
+    kill2 = recv(clientFD2, buf, BUFSIZ, 0);
+    int kill = kill1 + kill2;
+    send(clientFD1, (const char*)kill, BUFSIZ, 0);
+    send(clientFD2, (const char*)kill, BUFSIZ, 0);
+        //clients.insert(clientFD);
+        //char buf[BUFSIZ] = { 0 };
+        //int kill=recv(clientFD, buf, BUFSIZ, 0);
+        //cout << kill << endl;
+
+    
 }
